@@ -31,8 +31,17 @@ class CategoriaController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        //
+    {    
+        $categoria = new Categoria();
+        
+        $categoria->nombre = $request->nombre;
+        $categoria->descripcion = $request->descripcion;
+        $categoria->slug = $request->slug;
+        
+
+        $categoria->save();
+
+        return redirect('categoria')->with('success', 'Categoria creada correctamente');
     }
 
     /**
