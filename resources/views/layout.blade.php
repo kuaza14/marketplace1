@@ -255,9 +255,7 @@
                 <div class="page-pretitle">
                   
                 </div>
-                <h2 class="page-title">
-                  Categorias
-                </h2>
+                
               </div>
               <!-- Page title actions -->
               <div class="col-auto ms-auto d-print-none">

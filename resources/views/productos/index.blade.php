@@ -1,6 +1,9 @@
     @extends('layout')
     
     @section('content')
+    <h2 class="page-title">
+                  Productos
+                </h2>
     <table class="ui celled table">
         <trehead>
             <tr>

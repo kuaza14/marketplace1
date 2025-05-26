@@ -30,7 +30,16 @@ class CiudadesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $ciudad = new Ciudad();
+        
+        $ciudad->nombre = $request->nombre;
+        
+      
+        
+
+        $ciudad->save();
+
+        return redirect('ciudad')->with('success', 'Ciudad creada correctamente');
     }
 
     /**
