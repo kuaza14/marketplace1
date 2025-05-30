@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Categoria;
+use Illuminate\Validation\ValidationData;
+
+use Validator;
 
 class CategoriaController extends Controller
 {
@@ -32,12 +35,30 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {    
+        $validator = Validator::make($request->all(), [
+            'nombre' => 'required|max:255|unique:categorias',
+            'slug' => 'required|unique:categorias,slug',
+            'descripcion' => 'nullable|max:255',
+            'imagen' => 'nullable|image',
+        ]);
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+        
         $categoria = new Categoria();
         
         $categoria->nombre = $request->nombre;
         $categoria->descripcion = $request->descripcion;
         $categoria->slug = $request->slug;
-        
+
+        if ($request->hasFile('imagen')) {
+            $file = $request->file('imagen');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('img/categorias'), $filename);
+            $categoria->imagen = $filename;
+        } else {
+            $categoria->imagen = null; // O un valor por defecto
+        }
 
         $categoria->save();
 

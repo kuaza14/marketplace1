@@ -19,3 +19,5 @@ class Producto extends Model
         'ciudad_id',
     ];
 }
+
+
