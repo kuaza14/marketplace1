@@ -67,9 +67,6 @@
             <form action="{{ url('categoria') }}" method="POST" enctype="multipart/form-data">
               @csrf
 
-            
-
-
             <div class="mb-3">
               <label class="form-label">Nombre</label>
               <input type="text" class="form-control" name="nombre" placeholder="Nombre de la categoria" autofocus required value="{{ old('nombre') }}">
