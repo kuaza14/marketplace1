@@ -28,6 +28,10 @@
       body {
       	font-feature-settings: "cv03", "cv04", "cv11";
       }
+      .page-title{
+        font-size: 2rem;
+        font-weight: 600;
+      }
     </style>
   </head>
   <body >
