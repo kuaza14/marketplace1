@@ -38,7 +38,6 @@ class UsuariosController extends Controller
         $usuario->password = bcrypt($request->password);
         $usuario->rol = $request->rol;
         $usuario->ciudad_id = $request->ciudad_id;
-
         
       
         

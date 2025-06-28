@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\producto;
+use App\Models\categoria;
+use App\Models\ciudad;
+use App\Models\usuario;
+
 
 class ProductosController extends Controller
 {
@@ -13,8 +17,11 @@ class ProductosController extends Controller
     public function index()
     {
         $data = Producto::all();
+        $categorias = categoria::all();
+        $ciudades = ciudad::all();
+        $usuarios = usuario::all();
 
-        return view('productos.index', compact('data'));
+        return view('productos.index', compact('data', 'categorias', 'ciudades', 'usuarios'));
     }
 
     /**
@@ -49,6 +56,7 @@ class ProductosController extends Controller
         $producto->usuario_id = $request->usuario_id;
         $producto->ciudad_id = $request->ciudad_id;
 
+
         
       
         
@@ -56,6 +64,7 @@ class ProductosController extends Controller
         $producto->save();
 
         return redirect('producto')->with('success', 'producto creado correctamente');
+        
     }
 
     /**

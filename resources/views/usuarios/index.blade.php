@@ -43,10 +43,8 @@
           <div class="modal-body">
 
             <form action="{{ url('usuario') }}" method="POST" enctype="multipart/form-data">
+              
               @csrf
-
-            
-
 
             <div class="mb-3">
               <label class="form-label">Nombre</label>

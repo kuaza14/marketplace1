@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Usuario;
 use Illuminate\Validation\ValidationData;
+use Illuminate\Support\Facades\Auth;
 
 use Validator;
 use Hash;
@@ -16,8 +17,8 @@ class loginController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nombre' => 'required|string|max:100',
-            'email' => 'required|string|email|max:255|unique:usuarios',
-            'password' => 'required|string|min:8|',
+            'email' => 'required|email|unique:usuarios',
+            'password' => 'required|string|min:5|',
         ]);
 
         if ($validator->fails()) {
@@ -40,17 +41,27 @@ class loginController extends Controller
 
     public function check(Request $request)
     {
-        $validator = $request->only ('email', 'password');
 
-        if (auth()->attempt($credential)) {
-            return redirect('home')
+        $credential = $request->only ('email', 'password');
+
+        if (Auth()->attempt($credential)) {
+            return redirect()->intended('home')
                     ->with('type', 'success')
                     ->with('message', 'Bienvenido ' . auth()->user()->nombre);
-        } else {
-            return redirect('login')
-                    ->with('type', 'error')
-                    ->with('message', 'Credenciales incorrectas.');
+        
         }
+        return redirect()->back()
+                    ->with('type', 'danger')
+                    ->with('message', 'Credenciales incorrectas.');
+        
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('login')
+                ->with('type', 'success')
+                ->with('message', 'Has cerrado sesión correctamente.');
     }
 
 }
